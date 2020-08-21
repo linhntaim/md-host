@@ -13,7 +13,7 @@
             }
         },
         created() {
-            fetch('/md' + this.$route.path + '.md').then(response => {
+            fetch(process.env.VUE_APP_BASE_PATH + '/md' + this.$route.path + '.md').then(response => {
                 response.text().then(text => {
                     this.md = marked(text)
                 })
