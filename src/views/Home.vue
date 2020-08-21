@@ -1,18 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="md" class="markdown-body" v-html="md"></div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+    import marked from 'marked'
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'Home',
+        data() {
+            return {
+                md: '',
+            }
+        },
+        created() {
+            fetch('/md' + this.$route.path + '.md').then(response => {
+                response.text().then(text => {
+                    this.md = marked(text)
+                })
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+    }
 </script>
