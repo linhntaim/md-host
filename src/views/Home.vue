@@ -19,7 +19,8 @@
                 response.text().then(text => {
                     this.md = marked(text)
                         .replace(new RegExp('(src|href)="(../)*_assets/', 'g'), '$1="' + basePath + '/md/_assets/')
-                        .replace(new RegExp('(src|href)="(?<!http)(../)*(.+)\\.md', 'g'), '$1="' + basePath + '/$3')
+                        .replace(new RegExp('(src|href)="(?<!http)((../)+|/?md/|/?)(.+)\\.md', 'g'), '$1="' + basePath + '/$4')
+                        .replace(new RegExp('(src|href)="(?<!http)((../)+|/?html/|/?)(.+)\\.html', 'g'), '$1="' + basePath + '/html/$4.html')
                 })
             }).catch(error => {
                 console.log(error)
